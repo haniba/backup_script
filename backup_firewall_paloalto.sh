@@ -39,6 +39,7 @@ fi
          password=`echo ${ii}|cut -d ',' -f 4`
 		 echo clear old file config more than ${keepbackup} days ago.
 		 echo firewall name ${hostname}
+		 #Gen key for export configuration
 		 find ${backuppath}/${zone}/ -name running-config_${hostname}_*.xml -ctime +${keepbackup} -exec rm -rf {} \;
 		 curl -k "https://${ip}/api/?type=keygen&user=${username}&password=${password}" > ${homepath}/key_${hostname}.xml
 		 key=$(xmlstarlet sel -t -v '//key' ${homepath}/key_${hostname}.xml)
